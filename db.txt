@@ -1,0 +1,42 @@
+﻿create database if not exists `user_data` DEFAULT CHARACTER set utf8;
+use `user_data`;
+
+create table if not exists `users`(
+	`id` INT(10) UNSIGNED not null AUTO_INCREMENT,
+    `username` varchar(20) null default null,
+    `password` varchar(64) null default null,
+    `salt` varchar(32) null default null,
+    `name` varchar(40) null default null,
+    `joined` datetime,
+    `group` int(10) null default null,
+    PRIMARY key (`id`)
+	
+);
+
+create table if not exists `groups`(
+	`id` int(10) unsigned not null AUTO_INCREMENT,
+    `name` varchar(20) null default null,
+    `permissions` text,
+    PRIMARY KEY (`id`)
+
+);
+
+create table if not exists `users_sessions`(
+    `id` int(10) not null,
+    `user_id` int(10) not null,
+    `hash` varchar(64),
+    primary key (`id`)
+);
+
+delete from `users`;
+
+insert into `users` (`username`, `password`, `salt`, `name`, `joined`, `group`) values (
+	'username', '7d9ef86d69adb010f3e3d0075bd64e5d195c6b3bfee8cb3e363aea413d3b3898', 'ú¬9è#’ÆmkjÔ²=4e•Üx¢î^..ÙQªGG', 
+    'user','2099-01-01 16:36:29', 1);
+
+delete from `groups`;
+
+insert into `groups` (`name`, `permissions`) values ('Administrator', '{"admin": 1}');
+
+delete from `users_sessions`;
+
